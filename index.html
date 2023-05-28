@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Bartosz Z">
+    <meta name="keywords" content="CV, CV generator">
+    <meta name="description" content="Free simple CV PDF Generator">
+    <title>Simple CV Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="js/pdfmake/build/pdfmake.min.js"></script>
+    <script src="js/pdfmake/build/vfs_fonts.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <h1 class="title">Simple CV Generator</h1>
+    </header>
+    <main>
+        <section class="block" id="options">
+            <form id="forms">
+                <h2>Personal information</h2>
+                <hr>
+                <section id="personalinfo" class="form-section">
+                    <div>
+                        <label for="firstname">Fisrt Name</label>
+                        <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
+                    </div>
+                    <div>
+                        <label for="middlename">Middle Name</label>
+                        <input type="text" id="middlename" name="middlename" placeholder="Middle Name">
+                    </div>
+
+                    <div>
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
+                    </div>
+                    <div id="gender">
+                        <div>
+                            <label for="male">Male</label>
+                            <input type="radio" id="male" name="gender" value="Male" checked>
+                        </div>
+                        <div>
+                            <label for="female">Female</label>
+                            <input type="radio" id="female" name="gender" value="Female">
+                        </div>
+                        <div>
+                            <label for="other">Other</label>
+                            <input type="radio" id="other" name="gender" value="Other">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="birthdate">Date of birth</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+                </section>
+
+
+                <section id="contacts" class="form-section">
+                        <div id="phone">
+                            <label for="telnumber">Phone</label>
+                            <input type="tel" id="telnumber" name="telnumber" placeholder="Phone Number" required>
+                        </div>
+                    
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="E-mail address" required>
+                    </div>
+                    
+                </section>
+
+
+
+                <section id="address" class="form-section">
+                    <div>
+                        <label for="country">Country</label>
+                        <select id="country" name="country" required>
+                            <option value="Poland" selected>Poland</option>
+                            <option value="Germany">Germany</option>
+                            <option value="UK">UK</option>
+                            <option value="USA">USA</option>
+                            <option value="France">France</option>
+                            <option value="Russia">Russia</option>
+                            <option value="China">China</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" placeholder="City" required>
+                    </div>
+                    <div>
+                        <label for="postalcode">Postal code</label>
+                        <input type="text" id="postalcode" name="postalcode" placeholder="Postal code" required>
+                    </div>
+                </section>
+
+
+                <section class="form-section" id="edu-sec">
+                    <div>
+                        <label for="education">Education</label>
+                        <textarea id="education" name="education" rows="5" placeholder="separated by commas"></textarea>
+                    </div>
+                </section>
+
+
+                <section class="form-section" id="experience">
+                    <hr>
+                    <h2>
+                        Experience 
+                        <input type="button" class="addbuttons" id="addJob" value="Add Field">
+                        <input type="button" class="addbuttons" id="removeJob" value="Remove Last Field">
+                    </h2>
+                    <div>
+                        <label for="jobdate0">Start date</label>
+                        <input type="date" id="jobdate0" class="jobsdates" placeholder="start date" title="start date">
+                        <input type="text" id="jobex0" class="jobsex" placeholder="Job description">
+                    </div>
+                </section>
+
+                <section class="form-section" id="languages">
+                    <hr>
+                        <h2>
+                            Languages
+                            <input type="button" class="addbuttons" id="addLanguage" value="Add Field">
+                            <input type="button" class="addbuttons" id="removeLanguage" value="Remove Last Field">
+                        </h2>
+                    <div>
+                        <input type="text" id="language0" class="languages" placeholder="Language">
+                        <input type="text" id="languagelevel0" class="languageslevels" placeholder="Level">
+                    </div>
+                </section>
+
+                <section class="form-section" id="licenses">
+                    <hr>
+                        <h2>
+                            Licenses
+                            <input type="button" class="addbuttons" id="addLicense" value="Add Field">
+                            <input type="button" class="addbuttons" id="removeLicense" value="Remove Last Field">
+                        </h2>
+                    <div>
+                        <label for="license0">License</label>
+                        <input type="text" id="license0" class="licenses" placeholder="License">
+                    </div>
+                </section>
+
+                <section class="form-section" id="skills">
+                    <hr>
+                        <h2>
+                            Skills
+                            <input type="button" class="addbuttons" id="addSkill" value="Add Field">
+                            <input type="button" class="addbuttons" id="removeSkill" value="Remove Last Field">
+                        </h2>
+                    <div>
+                        <label for="skill0">Skill</label>
+                        <input type="text" id="skill0" class="skills" placeholder="Skill description">
+                    </div>
+                </section>
+
+
+                <section class="form-section" id="image">
+                    <hr>
+                    <h2>Photo</h2>
+                    <div>
+                        <label for="photo">Choose a profile photo:</label>
+                        <input type="file" id="photo" name="photo" accept="image/png, image/jpeg">
+                    </div>
+                </section>
+
+                <section class="form-section" id="provision">
+                    <hr>
+                    <h2>Identities provision</h2>
+                    <div>
+                        <label id="identitylabel" for="identity"><input type="checkbox" id="use-provision" checked>Paste provision:</label>
+                        <textarea id="identity" name="identity" rows="5" placeholder="Check checkbox to write identity provision"></textarea>
+                    </div>
+                </section>
+
+
+                <section class="form-section" id="form-control">
+                    <hr>
+                    <div>
+                        <input type="reset" value="Reset" id="reset-btn">
+                        <input type="button" value="Generate" id="submit-btn" onclick="GeneratePDF()">
+                    </div>
+                </section>
+
+            </form>
+        </section>
+        <section class="block" id="preview">
+            <header id="pdfheader">
+                <img id="imageHandler" width="150" src="img/anonymous.png" alt="Photo">
+                <div id="personal">
+                    <h3 id="name-field">
+                        <span id="name-fn">John</span>
+                        <span id="name-mn"></span>
+                        <span id="name-ln">Smith</span> 
+                    </h3>
+                    <h4 id="tel-field">123-456-789</h4>
+                    <h4 id="email-field">example@simplecv.com</h4>
+                    <h4 id="address-field">
+                        <span id="country-field">Poland,</span>
+                        <span id="city-field">Warsaw</span>
+                        <span id="postal-field">00-901</span>
+                    </h4>
+                </div> 
+            </header>
+            <section id="pdfsection">
+                <section id="education-field" class="pdfsection-field">
+                    <h3>Education</h3>
+                    <ul id="education-list">
+                        <li id="list-test-child">2000 - 2006 Harvard (Business Administration and Management)</li>
+                    </ul>
+                </section>
+                <section id="experience-field" class="pdfsection-field">
+                    <h3>Experience</h3>
+                    <p class="exp-field">
+                        <span class="exp-job">Amazon Web Developer</span>
+                        - work with Amazons APIs and servers maintenance (2010)
+                    </p>
+                    <p class="exp-field">
+                        <span class="exp-job">Microsoft Software Engineer</span>
+                        - creating new features for Microsoft software (2016)
+                    </p>
+                </section>
+                <section id="language-field" class="pdfsection-field">
+                    <h3>Language</h3>
+                    <p class="lang-field">
+                        <span class="lang-opt">English</span>
+                        - B2
+                    </p>
+                    <p class="lang-field">
+                        <span class="lang-opt">Polish</span>
+                        - communicative
+                    </p>
+                </section>
+                <section id="license-field" class="pdfsection-field">
+                    <h3>Licenses</h3>
+                    <p class="licenses-opt">
+                        Driving licence cat. B and C
+                    </p>
+                    <p class="licenses-opt">
+                        Microsoft Certified: Dynamics 365: Finance and Operations Apps Developer Associate
+                    </p>
+                </section>
+
+                <section id="provision-field" class="pdfsection-field">
+                    <p id="identity-field">
+                        I hereby consent to my personal data being processed by (company name) for the purpose of 
+                        considering my application for the vacancy advertised under reference number (123XX6 etc.)
+                    </p>
+                </section>
+            </section>
+        </section>
+    </main>
+    <footer class="footer">
+        <h3>Simple CV Generator &copy;</h3>
+    </footer>
+    <script src="js/script.js"></script>
+    <script>
+        const btn = document.getElementById('submit-btn');
+        //btn.addEventListener('click', GeneratePDF());
+    </script>
+</body>
+</html>
