@@ -149,6 +149,9 @@ addjobbtn.addEventListener('click', () => {
         input.id = 'jobdate'+JobsCounter;
         input.classList.add('jobsdates');
         input.placeholder = 'start date';
+        input.addEventListener('change', () => {
+            jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
+        });
         div.appendChild(input);
 
         input = document.createElement('input');
@@ -156,6 +159,9 @@ addjobbtn.addEventListener('click', () => {
         input.id = 'jobex'+JobsCounter;
         input.classList.add('jobsex');
         input.placeholder = 'Job description';
+        input.addEventListener('change', () => {
+            jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
+        });
         div.appendChild(input);
 
         par.appendChild(div);
@@ -166,6 +172,7 @@ addjobbtn.addEventListener('click', () => {
 const removejobbtn = document.getElementById('removeJob');
 removejobbtn.addEventListener('click', () => {
     removeField(JobsCounter, 'JobsCounter', 'jobsdates');
+    jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
 });
 /*----------------------------------------------------------------------------------------*/
 //add language field
@@ -183,6 +190,9 @@ addlangbtn.addEventListener('click', () => {
         input.id = 'language'+LanguageCounter;
         input.classList.add('languages');
         input.placeholder = 'Language';
+        input.addEventListener('change', () => {
+            jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
+        });
         div.appendChild(input);
 
         input = document.createElement('input');
@@ -190,6 +200,9 @@ addlangbtn.addEventListener('click', () => {
         input.id = 'languagelevel'+LanguageCounter;
         input.classList.add('languageslevels');
         input.placeholder = 'Level';
+        input.addEventListener('change', () => {
+            jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
+        });
         div.appendChild(input);
 
         par.appendChild(div);
@@ -199,6 +212,7 @@ addlangbtn.addEventListener('click', () => {
 const removelangbtn = document.getElementById('removeLanguage');
 removelangbtn.addEventListener('click', () => {
     removeField(LanguageCounter, 'LanguageCounter', 'languages');
+    jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
 });
 /*----------------------------------------------------------------------------------------*/
 //add license field
@@ -221,8 +235,10 @@ addlicbtn.addEventListener('click', () => {
         input.id = 'license'+LicenseCounter;
         input.classList.add('licenses');
         input.placeholder = 'License';
+        div.addEventListener('change', () => {
+            licSkillChange('licenses', 'licenses-parent', 'licenses-opt');
+        });
         div.appendChild(input);
-
         par.appendChild(div);
     }
 });
@@ -230,6 +246,7 @@ addlicbtn.addEventListener('click', () => {
 const removelicbtn = document.getElementById('removeLicense');
 removelicbtn.addEventListener('click', () => {
     removeField(LicenseCounter, 'LicenseCounter', 'licenses');
+    licSkillChange('licenses', 'licenses-parent', 'licenses-opt');
 });
 /*----------------------------------------------------------------------------------------*/
 //add skill field
@@ -251,8 +268,10 @@ addskillbtn.addEventListener('click', () => {
         input.id = 'skill'+SkillCounter;
         input.classList.add('skills');
         input.placeholder = 'Skill description';
+        input.addEventListener('change', () => {
+            licSkillChange('skills', 'skills-parent', 'skill-opt');
+        });
         div.appendChild(input);
-
         par.appendChild(div);
     }
     
@@ -261,6 +280,7 @@ addskillbtn.addEventListener('click', () => {
 const removeskillbtn = document.getElementById('removeSkill');
 removeskillbtn.addEventListener('click', () => {
     removeField(SkillCounter, 'SkillCounter', 'skills');
+    licSkillChange('skills', 'skills-parent', 'skill-opt');
 });
 /*----------------------------------------------------------------------------------------*/
 
@@ -274,6 +294,30 @@ function simpleChange(inputId, targetId){
     let target = document.getElementById(targetId);
     target.innerHTML = input.value.trim();
 }
+function jobLangChange(firstInputClass, secondInputClass, parentId, pClass, spanClass){
+    let targetParent = document.getElementById(parentId);
+    while (targetParent.firstChild) {
+        targetParent.removeChild(targetParent.firstChild);
+    }
+
+    let firstInputs = document.getElementsByClassName(firstInputClass);
+    let secondInputs = document.getElementsByClassName(secondInputClass);
+
+    let child;
+    for(let i = 0; i<firstInputs.length; i++){
+        child = document.createElement('p');
+        child.classList.add(pClass);
+
+        let span = document.createElement('span');
+        span.classList.add(spanClass);
+        span.appendChild(document.createTextNode(firstInputs[i].value.trim()));
+        child.appendChild(span);
+
+        child.appendChild(document.createTextNode(' - ' + secondInputs[i].value.trim()));
+        targetParent.appendChild(child);
+    }
+}
+
 
 document.getElementById('firstname').addEventListener('change', () => {
     simpleChange('firstname', 'name-fn');
@@ -328,6 +372,43 @@ document.getElementById('education').addEventListener('change', () => {
 
 //TODO:
 //language, license, skills, jobs - change events
+//dodając te eventy trzeba je tez dodać przy tworzeniu nowych pól przyciskami
+
+let jobsDates = document.getElementsByClassName('jobsdates');
+let jobsEx = document.getElementsByClassName('jobsex');
+for(let i = 0; i<jobsDates.length; i++){
+    jobsDates[i].addEventListener('change', () => {
+        jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
+    });
+    jobsEx[i].addEventListener('change', () => {
+        jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
+    });
+}
+
+let languages = document.getElementsByClassName('languages');
+let languagesLevels = document.getElementsByClassName('languageslevels');
+for(let i = 0; i<jobsDates.length; i++){
+    languages[i].addEventListener('change', () => {
+        jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
+    });
+    languagesLevels[i].addEventListener('change', () => {
+        jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
+    });
+}
+
+let licensesList = document.getElementsByClassName('licenses');
+for(let i = 0; i<licensesList.length; i++){
+    licensesList[i].addEventListener('change', () => {
+        licSkillChange('licenses', 'licenses-parent', 'licenses-opt');
+    });
+}
+
+let skillsList = document.getElementsByClassName('skills');
+for(let i = 0; i<skillsList.length; i++){
+    skillsList[i].addEventListener('change', () => {
+        licSkillChange('skills', 'skills-parent', 'skill-opt');
+    });
+}
 
 
 document.getElementById('photo').addEventListener('change', () => {
@@ -379,3 +460,24 @@ document.getElementById('identity').addEventListener('change', () => {
     }
 })
 /*----------------------------------------------------------------------------------------*/
+
+
+
+
+function licSkillChange(inputClass, parentId, pClass){
+    let targetParent = document.getElementById(parentId);
+    while (targetParent.firstChild) {
+        targetParent.removeChild(targetParent.firstChild);
+    }
+
+    let firstInputs = document.getElementsByClassName(inputClass);
+
+    let child;
+    for(let i = 0; i<firstInputs.length; i++){
+        child = document.createElement('p');
+        child.classList.add(pClass);
+
+        child.appendChild(document.createTextNode(firstInputs[i].value.trim()));
+        targetParent.appendChild(child);
+    }
+}
