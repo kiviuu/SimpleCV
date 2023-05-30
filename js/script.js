@@ -317,6 +317,31 @@ function jobLangChange(firstInputClass, secondInputClass, parentId, pClass, span
         targetParent.appendChild(child);
     }
 }
+function licSkillChange(inputClass, parentId, pClass){
+    let targetParent = document.getElementById(parentId);
+    while (targetParent.firstChild) {
+        targetParent.removeChild(targetParent.firstChild);
+    }
+
+    let firstInputs = document.getElementsByClassName(inputClass);
+
+    let child;
+    for(let i = 0; i<firstInputs.length; i++){
+        child = document.createElement('p');
+        child.classList.add(pClass);
+
+        child.appendChild(document.createTextNode(firstInputs[i].value.trim()));
+        targetParent.appendChild(child);
+    }
+}
+function changeColor(idInput, idTarget, isBackground){
+    let input = document.getElementById(idInput);
+    let target = document.getElementById(idTarget);
+    if(isBackground)
+        target.style.backgroundColor = input.value;
+    else
+        target.style.color = input.value;
+}
 
 
 document.getElementById('firstname').addEventListener('change', () => {
@@ -347,7 +372,6 @@ document.getElementById('city').addEventListener('change', () => {
 document.getElementById('postalcode').addEventListener('change', () => {
     simpleChange('postalcode', 'postal-field');
 });
-
 document.getElementById('education').addEventListener('change', () => {
     let text = document.getElementById('education').value.trim();
     let targetParent = document.getElementById('education-list');
@@ -370,9 +394,6 @@ document.getElementById('education').addEventListener('change', () => {
     }
 });
 
-//TODO:
-//language, license, skills, jobs - change events
-//dodając te eventy trzeba je tez dodać przy tworzeniu nowych pól przyciskami
 
 let jobsDates = document.getElementsByClassName('jobsdates');
 let jobsEx = document.getElementsByClassName('jobsex');
@@ -432,7 +453,7 @@ provisionCheck.addEventListener('change', () => {
     let label = document.getElementById('identitylabel');
     let target = document.getElementById('identity-field');
     if(provisionCheck.checked){
-        input.readOnly = false;
+        input.disabled = false;
         label.style.color = '#141414';
         if(input.value != ""){
             target.innerHTML = input.value;
@@ -442,7 +463,7 @@ provisionCheck.addEventListener('change', () => {
         }
     }
     else{
-        input.readOnly = true;
+        input.disabled = true;
         label.style.color = 'rgb(110, 110, 110)';
         target.innerHTML = "";
     }
@@ -459,25 +480,20 @@ document.getElementById('identity').addEventListener('change', () => {
         }
     }
 })
+
+
+
+document.getElementById('header-color').addEventListener('change', () => {
+    changeColor('header-color', 'pdfheader', true);
+});
+document.getElementById('header-font-color').addEventListener('change', () => {
+    changeColor('header-font-color', 'pdfheader', false);
+});
+document.getElementById('content-color').addEventListener('change', () => {
+    changeColor('content-color', 'pdfsection', true);
+});
+document.getElementById('content-font-color').addEventListener('change', () => {
+    changeColor('content-font-color', 'pdfsection', false);
+});
+
 /*----------------------------------------------------------------------------------------*/
-
-
-
-
-function licSkillChange(inputClass, parentId, pClass){
-    let targetParent = document.getElementById(parentId);
-    while (targetParent.firstChild) {
-        targetParent.removeChild(targetParent.firstChild);
-    }
-
-    let firstInputs = document.getElementsByClassName(inputClass);
-
-    let child;
-    for(let i = 0; i<firstInputs.length; i++){
-        child = document.createElement('p');
-        child.classList.add(pClass);
-
-        child.appendChild(document.createTextNode(firstInputs[i].value.trim()));
-        targetParent.appendChild(child);
-    }
-}

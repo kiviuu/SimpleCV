@@ -1,3 +1,4 @@
+/*global*/
 *{
     margin: 0;
     padding: 0;
@@ -26,8 +27,6 @@
     text-align: center;
     padding: 30px 0;
 }
-
-
 main{
     width: 100%;
     display: flex;
@@ -35,7 +34,19 @@ main{
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.block h2{
+    margin: 2vh 2vw;
+    color: #141414;
+}
+input[type=button], input[type=reset], input[type=file]{
+    cursor: pointer;
+}
+/*---------------------------------------------------------------------------*/
 
+
+
+
+/*left panel*/
 #options{
     height: auto;
     width: 45%;
@@ -43,37 +54,23 @@ main{
     background-color: rgb(218, 214, 214);
     border-radius: 30px;
     box-shadow: 3px 4px 15px -2px rgba(5,64,219,0.9),
-    3px 4px 15px -2px rgba(5,64,219,0.9) inset,
+    -3px -4px 15px -2px rgba(5,64,219,0.9) inset,
     -3px -4px 15px -2px rgba(230,125,63,0.9),
-    -3px -4px 15px -2px rgba(230,125,63,0.9) inset;
+    3px 4px 15px -2px rgba(230,125,63,0.9) inset;
 
 -webkit-box-shadow: 3px 4px 15px -2px rgba(5,64,219,0.9),
 -3px -4px 15px -2px rgba(5,64,219,0.9) inset,
 -3px -4px 15px -2px rgba(230,125,63,0.9),
-3px 4px 15px -2px rgba(230,125,63,0.9) inset;;
+3px 4px 15px -2px rgba(230,125,63,0.9) inset;
 
 -moz-box-shadow: 3px 4px 15px -2px rgba(5,64,219,0.9),
- -3px -4px 15px -2px rgba(230,125,63,0.9);
+-3px -4px 15px -2px rgba(5,64,219,0.9) inset,
+-3px -4px 15px -2px rgba(230,125,63,0.9),
+3px 4px 15px -2px rgba(230,125,63,0.9) inset;
 
 
     display: flex;
     flex-direction: column;
-}
-
-#preview{
-    width: 595px;
-    height: 842px;
-    margin: 5vh 0;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 0;
-}
-
-
-
-.block h2{
-    margin: 2vh 2vw;
-    color: #141414;
 }
 
 .form-section{
@@ -155,16 +152,17 @@ textarea:focus{
     margin-left: 2vw;
     margin-right: 0;
 }
-input[type=button], input[type=reset], input[type=file]{
-    cursor: pointer;
+/*---------------------------------------------------------------------------*/
+
+
+
+
+
+/*right panel*/
+#right-section{
+    display: flex;
+    flex-direction: column;
 }
-
-
-
-
-
-
-
 #pdfheader{
     display: flex;
     flex-direction: row;
@@ -188,15 +186,18 @@ input[type=button], input[type=reset], input[type=file]{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: auto;
+    flex-grow: 1;
     align-items: center;
     justify-content: space-around;
     text-align: left;
 }
 .pdfsection-field{
     width: 80%;
-    margin-bottom: 2vh;
+    
     flex-grow: 1;
+}
+.pdfsection-field:first-child{
+    margin-top: 12px;
 }
 .pdfsection-field ul{
     list-style-position: inside;
@@ -209,3 +210,62 @@ input[type=button], input[type=reset], input[type=file]{
     font-size: 10px;
     align-self: flex-end;
 }
+#preview{
+    width: 595px;
+    height: 842px;
+    margin: 5vh 0;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom{
+    width: 100%;
+    background-color: rgb(218, 214, 214);
+    border-radius: 30px;
+    box-shadow: -3px -4px 15px -2px rgba(5,64,219,0.9),
+    3px 4px 15px -2px rgba(5,64,219,0.9) inset,
+    3px 4px 15px -2px rgba(230,125,63,0.9),
+    -3px -4px 15px -2px rgba(230,125,63,0.9) inset;
+
+    -webkit-box-shadow: -3px 4px 15px -2px rgba(5,64,219,0.9),
+    3px -4px 15px -2px rgba(5,64,219,0.9) inset,
+    3px -4px 15px -2px rgba(230,125,63,0.9),
+    -3px -4px 15px -2px rgba(230,125,63,0.9) inset;
+
+-moz-box-shadow: -3px -4px 15px -2px rgba(5,64,219,0.9),
+3px 4px 15px -2px rgba(5,64,219,0.9) inset,
+3px 4px 15px -2px rgba(230,125,63,0.9),
+-3px 4px 15px -2px rgba(230,125,63,0.9) inset;
+    margin-top: -2vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: space-around;
+    text-align: center;
+}
+.custom section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
+}
+.custom-settings{
+    /* background-color: #888888; */
+    width: 22%;
+    margin: 1vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+.custom-settings input,label{
+    width: 70%;
+    margin: 5px 0;
+    font-weight: bold;
+}
+/*---------------------------------------------------------------------------*/
