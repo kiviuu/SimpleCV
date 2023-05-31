@@ -114,8 +114,7 @@
                         <input type="button" class="addbuttons" id="removeJob" value="Remove Last Field">
                     </h2>
                     <div>
-                        <label for="jobdate0">Start date</label>
-                        <input type="date" id="jobdate0" class="jobsdates" placeholder="start date" title="start date">
+                        <input type="text" id="jobdate0" class="jobsdates" placeholder="Job" title="Job">
                         <input type="text" id="jobex0" class="jobsex" placeholder="Job description">
                     </div>
                 </section>
@@ -182,8 +181,20 @@
                 <section class="form-section" id="form-control">
                     <hr>
                     <div>
-                        <input type="reset" value="Reset" id="reset-btn">
-                        <input type="button" value="Generate" id="submit-btn" onclick="GeneratePDF()">
+                        <button type="reset" id="reset-btn" title="reset">
+                            <svg fill="#990000" width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M23,12A11,11,0,1,1,12,1a10.9,10.9,0,0,1,5.882,1.7l1.411-1.411A1,1,0,0,1,21,2V6a1,1,0,0,1-1,1H16a1,1,0,0,1-.707-1.707L16.42,4.166A8.9,8.9,0,0,0,12,3a9,9,0,1,0,9,9,1,1,0,0,1,2,0Z"/>
+                            </svg>
+                        </button>
+                        <button type="button" id="submit-btn" title="download">
+                            <svg width="50px" height="50px" viewBox="0 0 24 24" fill="#2dd256" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Interface / Download">
+                                <path id="Vector" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12" stroke="#00661a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                            </svg>
+                        </button>
+                        <!-- <input type="reset" value="Reset" id="reset-btn">
+                        <input type="button" value="Generate" id="submit-btn" onclick="GeneratePDF()"> -->
                     </div>
                 </section>
 

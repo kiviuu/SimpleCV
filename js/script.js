@@ -4,20 +4,13 @@ function GeneratePDF(){
     var firstName = document.getElementById('firstname').value.trim();
     var middleName = document.getElementById('middlename').value.trim();
     var lastName = document.getElementById('lastname').value.trim();
-    var genders = document.getElementsByName('gender');
-    var gender;
-    genders.forEach(item => {
-        if(item.checked) gender = item.value.trim();
-    });
-
-    var birthDate = document.getElementById('birthdate').value;
     //section Personal Info
 
 
     //section Contacts
     var phone = document.getElementById('telnumber').value.trim();
     var email = document.getElementById('email').value.trim();
-     //section Contacts
+    //section Contacts
 
 
     //section Address
@@ -29,6 +22,11 @@ function GeneratePDF(){
 
     //section Education
     var education = document.getElementById('education').value.trim();
+    var educatnioList = [];
+    educatnioList = education.split(',');
+    if(educatnioList[educatnioList.length-1] == "")
+        educatnioList.pop();
+    //array with elements
     //section Education
 
 
@@ -40,11 +38,24 @@ function GeneratePDF(){
     }
 
     var jobsDescription = document.getElementsByClassName('jobsex');
-    var jobdsDescriptionList = [];
+    var jobdsElements = [];
     for(let i = 0; i<jobsDescription.length; i++){
-        jobdsDescriptionList.push(jobsDescription[i].value.trim());
+        var obj = {
+            text: jobsDatesList[i],
+            bold: true,
+            width: 'auto',
+        };
+        var obj2 = {
+            text: "-\u00A0" + jobsDescription[i].value.trim(),
+            width: 'auto', 
+            margin: [10,0,0,0]
+        };
+        var column = [obj, obj2];
+        console.log(column);
+        jobdsElements.push({columns: column});
     }
     //section Experienc
+
     
 
     //section Languages
@@ -53,12 +64,26 @@ function GeneratePDF(){
     for(let i = 0; i<languages.length; i++){
         languagesList.push(languages[i].value.trim());
     }
-
     var languagesLevels = document.getElementsByClassName('languageslevels');
-    var languagesLevelsList = [];
+    console.log(languagesLevels);
+    var languagesElements = [];
     for(let i = 0; i<languagesLevels.length; i++){
-        languagesLevelsList.push(languagesLevels[i].value.trim());
+        var obj = {
+            text: languagesList[i],
+            bold: true,
+            width: 'auto',
+        };
+        var obj2 = {
+            text: "-\u00A0" + languagesLevels[i].value.trim(),
+            width: 'auto', 
+            margin: [10,0,0,0]
+        };
+        var column = [obj, obj2];
+        console.log(column);
+        languagesElements.push({columns: column});
+       
     }
+    console.log(languagesElements);
     //section Languages
 
 
@@ -75,8 +100,9 @@ function GeneratePDF(){
     var skills = document.getElementsByClassName('skills');
     var skillsList = [];
     for(let i = 0; i<skills.length; i++){
-       skillsList.push(skills[i].value.trim());
+       skillsList.push({text: skills[i].value.trim()});
     }
+
     //section Skills
 
 
@@ -84,26 +110,155 @@ function GeneratePDF(){
     const fileInput = document.getElementById('photo');
     const file = fileInput.files[0];
     
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const imageDataUrl = event.target.result;
-      // Tutaj możesz wykorzystać imageDataUrl
-      document.getElementById('imageHandler').src=imageDataUrl;
-      console.log(imageDataUrl);
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imageDataUrl = event.target.result; 
+            //console.log(imageDataUrl);
+            document.getElementById('imageHandler').src=imageDataUrl;
     };
-
-    reader.readAsDataURL(file);
-  }
+    
+        reader.readAsDataURL(file);
+    }
+    var imageSrc = document.getElementById('imageHandler').src;
+    var imageObj = {
+        image: "",
+        fit: [125, 175], 
+        margin: [0,0,0,10]
+    }
+    console.log(file);
+    if(typeof(file) === 'undefined'){
+        alert("Wybierz plik graficzny!");
+        return 0;
+    }
+    else{
+        imageObj.image = imageSrc;
+    }
+    //console.log(image);
     //section Image
 
 
     //section Provision
+    var provision = "";
     if(document.getElementById('use-provision').checked){
-        var provision = document.getElementById('identity').value.trim();
+        provision = document.getElementById('identity').value.trim();
     }
-    console.log(document.getElementById('use-provision').checked);
     //section Provision
+
+
+    //section custom settings
+    var headerColor = document.getElementById('header-color').value;
+    var headerFontColor = document.getElementById('header-font-color').value;
+    var contentColor = document.getElementById('content-color').value;
+    var contentFontColor = document.getElementById('content-font-color').value;
+    //section custom settings
+
+
+
+    var h2Style = {
+        fontSize: 15,
+        margin: [0,20,0,10],
+        bold: true
+    };
+    var footerStyle = {
+        alignment: 'center',
+        fontSize: 8,
+        color: "#999999"
+    };
+    var space = {
+        margin: [5,0,0,0]
+    };
+    var dd = {
+        pageSize: 'A4',
+        pageMargins: [ 30, 20, 30, 40 ],
+        background: function () {
+            return {
+                canvas: [
+                    {
+                       type: 'rect',
+                        x: 0, y: 0, w: 595.28, h: 200,
+                        color: headerColor
+                    },
+                    {
+                        type: 'rect',
+                        x: 0, y: 200, w: 595.28, h: 641.89,
+                        color: contentColor
+                    }
+                ]
+            };
+        },
+        content: [
+            {
+                columns: [
+                        imageObj,
+                        {
+                            stack:[
+                                    {
+                                        columns: [
+                                                {text: firstName, width: 'auto'},
+                                                {text: middleName, width: 'auto', style: 'spaces'},
+                                                {text: (lastName + " "), width: 'auto', style: 'spaces'}
+                                            ]
+                                    },
+                                    {text: "tel.\u00A0" + phone},
+                                    {text: email},
+                                    {
+                                        columns: [
+                                                {text: country + ",", width: 'auto'},
+                                                {text: city, width: 'auto', style: 'spaces'},
+                                                {text: postalCode, width: 'auto', style: 'spaces'}
+                                            ], 
+                                    }
+                                ],width: 'auto',
+                                absolutePosition: { x: 350, y: 45},bold: true, color: headerFontColor
+                        }
+                    ]
+                    
+            },
+            {
+              text: "Education", bold: true, style: "h2", color: contentFontColor
+            },
+            {
+                ul: educatnioList,color: contentFontColor
+            },
+            {
+                text: "Experience", bold: true, style: "h2",color: contentFontColor
+            },
+            {
+                stack: jobdsElements,color: contentFontColor
+            },
+            {
+                text: "Language", bold: true, style: "h2",color: contentFontColor
+            },
+            {
+                stack:  languagesElements,color: contentFontColor
+            },
+            {
+                text: "Licenses", bold: true, style: "h2",color: contentFontColor
+            },
+            {
+                stack: licensesList,color: contentFontColor
+            },
+            {
+                text: "Skills", bold: true, style: "h2",color: contentFontColor
+            },
+            {
+                stack: skillsList,color: contentFontColor
+            },
+            {
+                text: provision,
+                style: "footer",
+                absolutePosition: { x: 35, y: 760, bottom: 0 },
+            }
+            
+        ],
+        styles: {
+            h2: h2Style,
+            footer: footerStyle,
+            spaces: space
+        }
+    }
+    pdfMake.createPdf(dd).open();
 }
 
 
@@ -138,17 +293,12 @@ addjobbtn.addEventListener('click', () => {
         JobsCounter++;
         var par = document.getElementById('experience');
         var div = document.createElement('div');
-        var textNode = document.createTextNode('Start date');
-        var label = document.createElement('label');
-        label.for = 'jobdate' + JobsCounter;
-        label.appendChild(textNode);
-        div.appendChild(label);
 
         var input = document.createElement('input');
-        input.type = 'date';
+        input.type = 'text';
         input.id = 'jobdate'+JobsCounter;
         input.classList.add('jobsdates');
-        input.placeholder = 'start date';
+        input.placeholder = 'Job';
         input.addEventListener('change', () => {
             jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
         });
@@ -433,7 +583,6 @@ for(let i = 0; i<skillsList.length; i++){
 
 
 document.getElementById('photo').addEventListener('change', () => {
-    console.log('image');
     const fileInput = document.getElementById('photo');
     const file = fileInput.files[0];
     
@@ -497,3 +646,7 @@ document.getElementById('content-font-color').addEventListener('change', () => {
 });
 
 /*----------------------------------------------------------------------------------------*/
+
+document.getElementById('submit-btn').addEventListener('click', () => {
+    GeneratePDF();
+});
