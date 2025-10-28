@@ -1,3 +1,8 @@
+let previewOriginal = null;
+document.addEventListener('DOMContentLoaded', () => {
+    previewOriginal = document.getElementById('preview').cloneNode(true);
+});
+
 function GeneratePDF(){
     console.log("function call");
     //section Personal Info
@@ -51,7 +56,6 @@ function GeneratePDF(){
             margin: [10,0,0,0]
         };
         var column = [obj, obj2];
-        console.log(column);
         jobdsElements.push({columns: column});
     }
     //section Experienc
@@ -65,7 +69,6 @@ function GeneratePDF(){
         languagesList.push(languages[i].value.trim());
     }
     var languagesLevels = document.getElementsByClassName('languageslevels');
-    console.log(languagesLevels);
     var languagesElements = [];
     for(let i = 0; i<languagesLevels.length; i++){
         var obj = {
@@ -83,7 +86,6 @@ function GeneratePDF(){
         languagesElements.push({columns: column});
        
     }
-    console.log(languagesElements);
     //section Languages
 
 
@@ -109,24 +111,28 @@ function GeneratePDF(){
     //section Image
     const fileInput = document.getElementById('photo');
     const file = fileInput.files[0];
-    
+    const imageHandler = document.getElementById('imageHandler');
+    let imgHeight = 0;
     if (file) {
         const reader = new FileReader();
         reader.onload = function(event) {
             const imageDataUrl = event.target.result; 
             //console.log(imageDataUrl);
-            document.getElementById('imageHandler').src=imageDataUrl;
-    };
+            imageHandler.src=imageDataUrl;
+        };
     
         reader.readAsDataURL(file);
     }
-    var imageSrc = document.getElementById('imageHandler').src;
+    var imageSrc = imageHandler.src;
+    //console.log(imageSrc.height);
+    const calculatedBottomMargin = 220 - imgHeight;
+    //console.log(calculatedBottomMargin);
     var imageObj = {
         image: "",
-        fit: [125, 175], 
+        fit: [150, 170],
         margin: [0,0,0,10]
     }
-    console.log(file);
+    //console.log(file);
     if(typeof(file) === 'undefined'){
         alert("Wybierz plik graficzny!");
         return 0;
@@ -176,7 +182,7 @@ function GeneratePDF(){
                 canvas: [
                     {
                        type: 'rect',
-                        x: 0, y: 0, w: 595.28, h: 200,
+                        x: 0, y: 0, w: 595.28, h: 250,
                         color: headerColor
                     },
                     {
@@ -299,7 +305,7 @@ addjobbtn.addEventListener('click', () => {
         input.id = 'jobdate'+JobsCounter;
         input.classList.add('jobsdates');
         input.placeholder = 'Job';
-        input.addEventListener('change', () => {
+        input.addEventListener('input', () => {
             jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
         });
         div.appendChild(input);
@@ -309,7 +315,7 @@ addjobbtn.addEventListener('click', () => {
         input.id = 'jobex'+JobsCounter;
         input.classList.add('jobsex');
         input.placeholder = 'Job description';
-        input.addEventListener('change', () => {
+        input.addEventListener('input', () => {
             jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
         });
         div.appendChild(input);
@@ -340,7 +346,7 @@ addlangbtn.addEventListener('click', () => {
         input.id = 'language'+LanguageCounter;
         input.classList.add('languages');
         input.placeholder = 'Language';
-        input.addEventListener('change', () => {
+        input.addEventListener('input', () => {
             jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
         });
         div.appendChild(input);
@@ -350,7 +356,7 @@ addlangbtn.addEventListener('click', () => {
         input.id = 'languagelevel'+LanguageCounter;
         input.classList.add('languageslevels');
         input.placeholder = 'Level';
-        input.addEventListener('change', () => {
+        input.addEventListener('input', () => {
             jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
         });
         div.appendChild(input);
@@ -385,7 +391,7 @@ addlicbtn.addEventListener('click', () => {
         input.id = 'license'+LicenseCounter;
         input.classList.add('licenses');
         input.placeholder = 'License';
-        div.addEventListener('change', () => {
+        div.addEventListener('input', () => {
             licSkillChange('licenses', 'licenses-parent', 'licenses-opt');
         });
         div.appendChild(input);
@@ -418,7 +424,7 @@ addskillbtn.addEventListener('click', () => {
         input.id = 'skill'+SkillCounter;
         input.classList.add('skills');
         input.placeholder = 'Skill description';
-        input.addEventListener('change', () => {
+        input.addEventListener('input', () => {
             licSkillChange('skills', 'skills-parent', 'skill-opt');
         });
         div.appendChild(input);
@@ -433,7 +439,18 @@ removeskillbtn.addEventListener('click', () => {
     licSkillChange('skills', 'skills-parent', 'skill-opt');
 });
 /*----------------------------------------------------------------------------------------*/
-
+//add email validation
+const email = document.getElementById('email');
+email.addEventListener('input', () => {
+    if (email.validity.valid){
+        email.style.borderColor = 'transparent';
+        email.style.backgroundColor = 'transparent';
+    }
+    else{
+        email.style.borderColor = 'red';
+        email.style.backgroundColor = '#F29292';
+    }
+});
 
 
 
@@ -493,160 +510,185 @@ function changeColor(idInput, idTarget, isBackground){
         target.style.color = input.value;
 }
 
-
-document.getElementById('firstname').addEventListener('change', () => {
-    simpleChange('firstname', 'name-fn');
-});
-document.getElementById('middlename').addEventListener('change', () => {
-    simpleChange('middlename', 'name-mn');
-});
-document.getElementById('lastname').addEventListener('change', () => {
-    simpleChange('lastname', 'name-ln');
-});
-document.getElementById('telnumber').addEventListener('change', () => {
-    simpleChange('telnumber', 'tel-field');
-});
-document.getElementById('email').addEventListener('change', () => {
-    simpleChange('email', 'email-field');
-});
-document.getElementById('country').addEventListener('change', () => {
-    let input = document.getElementById('country');
-    let target = document.getElementById('country-field');
-    target.innerHTML = input.value.trim() + ", ";
-});
-document.getElementById('city').addEventListener('change', () => {
-    let input = document.getElementById('city');
-    let target = document.getElementById('city-field');
-    target.innerHTML = input.value.trim() + " ";
-});
-document.getElementById('postalcode').addEventListener('change', () => {
-    simpleChange('postalcode', 'postal-field');
-});
-document.getElementById('education').addEventListener('change', () => {
-    let text = document.getElementById('education').value.trim();
-    let targetParent = document.getElementById('education-list');
-    
-
-    while (targetParent.firstChild) {
-        targetParent.removeChild(targetParent.firstChild);
-    }
-    
-
-    let li = [];
-    li = text.split(',');
-    if(li[li.length-1] == "")
-        li.pop();
-    let child;
-    for(let i = 0; i < li.length; i++){
-        child = document.createElement('li');
-        child.appendChild(document.createTextNode(li[i]));
-        targetParent.appendChild(child);
-    }
-});
-
-
-let jobsDates = document.getElementsByClassName('jobsdates');
-let jobsEx = document.getElementsByClassName('jobsex');
-for(let i = 0; i<jobsDates.length; i++){
-    jobsDates[i].addEventListener('change', () => {
-        jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
+function attachOnChangeEvents() {
+    document.getElementById('firstname').addEventListener('input', () => {
+        simpleChange('firstname', 'name-fn');
     });
-    jobsEx[i].addEventListener('change', () => {
-        jobLangChange('jobsdates','jobsex','exp-parent','exp-field','expjob');
+    document.getElementById('middlename').addEventListener('input', () => {
+        simpleChange('middlename', 'name-mn');
+    });
+    document.getElementById('lastname').addEventListener('input', () => {
+        simpleChange('lastname', 'name-ln');
+    });
+    document.getElementById('telnumber').addEventListener('input', () => {
+        simpleChange('telnumber', 'tel-field');
+    });
+    document.getElementById('email').addEventListener('input', () => {
+        simpleChange('email', 'email-field');
+    });
+    document.getElementById('country').addEventListener('input', () => {
+        let input = document.getElementById('country');
+        let target = document.getElementById('country-field');
+        target.innerHTML = input.value.trim() + ", ";
+    });
+    document.getElementById('city').addEventListener('input', () => {
+        let input = document.getElementById('city');
+        let target = document.getElementById('city-field');
+        target.innerHTML = input.value.trim() + " ";
+    });
+    document.getElementById('postalcode').addEventListener('input', () => {
+        simpleChange('postalcode', 'postal-field');
+    });
+    document.getElementById('education').addEventListener('input', () => {
+        let text = document.getElementById('education').value.trim();
+        let targetParent = document.getElementById('education-list');
+
+
+        while (targetParent.firstChild) {
+            targetParent.removeChild(targetParent.firstChild);
+        }
+
+
+        let li = [];
+        li = text.split(',');
+        if (li[li.length - 1] == "")
+            li.pop();
+        let child;
+        for (let i = 0; i < li.length; i++) {
+            child = document.createElement('li');
+            child.appendChild(document.createTextNode(li[i]));
+            targetParent.appendChild(child);
+        }
+    });
+
+
+    let jobsDates = document.getElementsByClassName('jobsdates');
+    let jobsEx = document.getElementsByClassName('jobsex');
+    for (let i = 0; i < jobsDates.length; i++) {
+        jobsDates[i].addEventListener('input', () => {
+            jobLangChange('jobsdates', 'jobsex', 'exp-parent', 'exp-field', 'expjob');
+        });
+        jobsEx[i].addEventListener('input', () => {
+            jobLangChange('jobsdates', 'jobsex', 'exp-parent', 'exp-field', 'expjob');
+        });
+    }
+
+    let languages = document.getElementsByClassName('languages');
+    let languagesLevels = document.getElementsByClassName('languageslevels');
+    for (let i = 0; i < jobsDates.length; i++) {
+        languages[i].addEventListener('input', () => {
+            jobLangChange('languages', 'languageslevels', 'lang-parent', 'lang-field', 'lang-opt');
+        });
+        languagesLevels[i].addEventListener('input', () => {
+            jobLangChange('languages', 'languageslevels', 'lang-parent', 'lang-field', 'lang-opt');
+        });
+    }
+
+    let licensesList = document.getElementsByClassName('licenses');
+    for (let i = 0; i < licensesList.length; i++) {
+        licensesList[i].addEventListener('input', () => {
+            licSkillChange('licenses', 'licenses-parent', 'licenses-opt');
+        });
+    }
+
+    let skillsList = document.getElementsByClassName('skills');
+    for (let i = 0; i < skillsList.length; i++) {
+        skillsList[i].addEventListener('input', () => {
+            licSkillChange('skills', 'skills-parent', 'skill-opt');
+        });
+    }
+
+
+    document.getElementById('photo').addEventListener('input', () => {
+        const fileInput = document.getElementById('photo');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const imageDataUrl = event.target.result;
+                document.getElementById('imageHandler').src = imageDataUrl;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    const example = document.getElementById('identity-field').innerHTML;
+    const provisionCheck = document.getElementById('use-provision');
+    provisionCheck.addEventListener('input', () => {
+        let input = document.getElementById('identity');
+        let label = document.getElementById('identitylabel');
+        let target = document.getElementById('identity-field');
+        if (provisionCheck.checked) {
+            input.disabled = false;
+            label.style.color = '#141414';
+            if (input.value != "") {
+                target.innerHTML = input.value;
+            } else {
+                target.innerHTML = example;
+            }
+        } else {
+            input.disabled = true;
+            label.style.color = 'rgb(110, 110, 110)';
+            target.innerHTML = "";
+        }
+    });
+    document.getElementById('identity').addEventListener('input', () => {
+        let input = document.getElementById('identity');
+        let target = document.getElementById('identity-field');
+        if (provisionCheck.checked) {
+            if (input.value != "") {
+                target.innerHTML = input.value;
+            } else {
+                target.innerHTML = example;
+            }
+        }
+    })
+
+
+    document.getElementById('header-color').addEventListener('input', () => {
+        changeColor('header-color', 'pdfheader', true);
+    });
+    document.getElementById('header-font-color').addEventListener('input', () => {
+        changeColor('header-font-color', 'pdfheader', false);
+    });
+    document.getElementById('content-color').addEventListener('input', () => {
+        changeColor('content-color', 'pdfsection', true);
+    });
+    document.getElementById('content-font-color').addEventListener('input', () => {
+        changeColor('content-font-color', 'pdfsection', false);
     });
 }
-
-let languages = document.getElementsByClassName('languages');
-let languagesLevels = document.getElementsByClassName('languageslevels');
-for(let i = 0; i<jobsDates.length; i++){
-    languages[i].addEventListener('change', () => {
-        jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
-    });
-    languagesLevels[i].addEventListener('change', () => {
-        jobLangChange('languages','languageslevels','lang-parent','lang-field','lang-opt');
-    });
-}
-
-let licensesList = document.getElementsByClassName('licenses');
-for(let i = 0; i<licensesList.length; i++){
-    licensesList[i].addEventListener('change', () => {
-        licSkillChange('licenses', 'licenses-parent', 'licenses-opt');
-    });
-}
-
-let skillsList = document.getElementsByClassName('skills');
-for(let i = 0; i<skillsList.length; i++){
-    skillsList[i].addEventListener('change', () => {
-        licSkillChange('skills', 'skills-parent', 'skill-opt');
-    });
-}
-
-
-document.getElementById('photo').addEventListener('change', () => {
-    const fileInput = document.getElementById('photo');
-    const file = fileInput.files[0];
-    
-    if(file){
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const imageDataUrl = event.target.result;
-            document.getElementById('imageHandler').src=imageDataUrl;
-        }
-        reader.readAsDataURL(file);
-    }
-});
-const example = document.getElementById('identity-field').innerHTML;
-const provisionCheck = document.getElementById('use-provision');
-provisionCheck.addEventListener('change', () => {
-    let input = document.getElementById('identity');
-    let label = document.getElementById('identitylabel');
-    let target = document.getElementById('identity-field');
-    if(provisionCheck.checked){
-        input.disabled = false;
-        label.style.color = '#141414';
-        if(input.value != ""){
-            target.innerHTML = input.value;
-        }
-        else{
-            target.innerHTML = example;
-        }
-    }
-    else{
-        input.disabled = true;
-        label.style.color = 'rgb(110, 110, 110)';
-        target.innerHTML = "";
-    }
-});
-document.getElementById('identity').addEventListener('change', () => {
-    let input = document.getElementById('identity');
-    let target = document.getElementById('identity-field');
-    if(provisionCheck.checked){
-        if(input.value != ""){
-            target.innerHTML = input.value;
-        }
-        else{
-            target.innerHTML = example;
-        }
-    }
-})
-
-
-
-document.getElementById('header-color').addEventListener('change', () => {
-    changeColor('header-color', 'pdfheader', true);
-});
-document.getElementById('header-font-color').addEventListener('change', () => {
-    changeColor('header-font-color', 'pdfheader', false);
-});
-document.getElementById('content-color').addEventListener('change', () => {
-    changeColor('content-color', 'pdfsection', true);
-});
-document.getElementById('content-font-color').addEventListener('change', () => {
-    changeColor('content-font-color', 'pdfsection', false);
-});
-
+attachOnChangeEvents();
 /*----------------------------------------------------------------------------------------*/
+function validateRequiredFields(){
+    let fullValid = true;
+    return true;
+    const toValidateFields = document.getElementsByClassName('to-validate');
+    const toValidPairs = Array.from(toValidateFields).map(field => {
+       const input = field.querySelector('input');
+       const message = field.querySelector('.message');
+       return [input, message];
+    });
+
+    for (let i = 0; i < toValidateFields.length; i++) {
+        if (toValidPairs[i][0].validity.valid === false){
+            toValidPairs[i][1].style.display = 'block';
+            fullValid = false;
+        }
+        else{
+            toValidPairs[i][1].style.display = 'none';
+        }
+    }
+    return fullValid;
+}
 
 document.getElementById('submit-btn').addEventListener('click', () => {
-    GeneratePDF();
+    if (validateRequiredFields()) {
+        GeneratePDF();
+    }
+});
+document.getElementById('reset-btn').addEventListener('click', () => {
+    const previewCopy = previewOriginal.cloneNode(true);
+    document.getElementById('preview').replaceWith(previewCopy);
+    attachOnChangeEvents();
 });

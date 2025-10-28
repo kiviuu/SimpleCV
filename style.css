@@ -84,6 +84,7 @@ input[type=button], input[type=reset], input[type=file]{
     justify-content: space-around;
     margin-bottom: 1vh;
     margin-top: 1vh;
+    flex-wrap: wrap;
 }
 
 .form-section div label{
@@ -164,6 +165,13 @@ textarea:focus{
 #submit-btn:hover{
     transform: rotate(20deg) scale(1.1);    
 }
+.message{
+    color: red;
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 1vh;
+    display: none;
+}
 /*---------------------------------------------------------------------------*/
 
 
@@ -179,6 +187,7 @@ textarea:focus{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 250px;
 }
 #personal{
     display: flex;
@@ -190,6 +199,8 @@ textarea:focus{
 }
 #imageHandler{
     margin: 2vh 2vw;
+    object-fit: contain;
+    object-position: center;
 }
 #personal h4,h3{
     margin-bottom: 1vh;

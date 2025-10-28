@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Bartosz Z">
-    <meta name="keywords" content="CV, CV generator">
-    <meta name="description" content="Free simple CV PDF Generator">
-    <title>Simple CV Generator</title>
+    <meta name="keywords" content="CV, CV Maker">
+    <meta name="description" content="Free simple CV PDF Maker">
+    <title>Simple CV Maker</title>
 
     <link rel="stylesheet" href="style.css">
     <script src="js/pdfmake/build/pdfmake.min.js"></script>
@@ -16,7 +16,7 @@
 </head>
 <body>
     <header class="header">
-        <h1 class="title">Simple CV Generator</h1>
+        <h1 class="title">Simple CV Maker</h1>
     </header>
     <main>
         <section class="block" id="options">
@@ -24,18 +24,20 @@
                 <h2>Personal information</h2>
                 <hr>
                 <section id="personalinfo" class="form-section">
-                    <div>
+                    <div class="to-validate">
                         <label for="firstname">Fisrt Name</label>
                         <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
+                        <span class="message">This field is required.</span>
                     </div>
                     <div>
                         <label for="middlename">Middle Name</label>
                         <input type="text" id="middlename" name="middlename" placeholder="Middle Name">
                     </div>
 
-                    <div>
+                    <div class="to-validate">
                         <label for="lastname">Last Name</label>
                         <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
+                        <span class="message">This field is required.</span>
                     </div>
                     <div id="gender">
                         <div>
@@ -52,9 +54,10 @@
                         </div>
                     </div>
                     
-                    <div>
+                    <div class="to-validate">
                         <label for="birthdate">Date of birth</label>
                         <input type="date" id="birthdate" name="birthdate" required>
+                        <span class="message">This field is required.</span>
                     </div>
                 </section>
 
@@ -65,9 +68,10 @@
                             <input type="tel" id="telnumber" name="telnumber" placeholder="Phone Number" required>
                         </div>
                     
-                    <div>
+                    <div class="to-validate">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="E-mail address" required>
+                        <span class="message">This field is required.</span>
                     </div>
                     
                 </section>
@@ -162,9 +166,10 @@
                 <section class="form-section" id="image">
                     <hr>
                     <h2>Photo</h2>
-                    <div>
+                    <div class="to-validate">
                         <label for="photo">Choose a profile photo:</label>
-                        <input type="file" id="photo" name="photo" accept="image/png, image/jpeg">
+                        <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" required>
+                        <span class="message">This field is required.</span>
                     </div>
                 </section>
 
@@ -203,7 +208,7 @@
         <section class="block" id="right-section">
             <section id="preview">
                 <header id="pdfheader">
-                    <img id="imageHandler" width="150" src="img/anonymous.png" alt="Photo">
+                    <img id="imageHandler" width="150px" height="210px" src="img/anonymous.png" alt="Photo">
                     <div id="personal">
                         <h3 id="name-field">
                             <span id="name-fn">John</span>
@@ -321,7 +326,7 @@
         </section>
     </main>
     <footer class="footer">
-        <h3>Simple CV Generator &copy;</h3>
+        <h3>Simple CV Maker &copy;</h3>
     </footer>
     <script src="js/script.js"></script>
     <script>
