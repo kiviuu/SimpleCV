@@ -18,6 +18,15 @@ function consumeCookies(){
                     newH2Color = 'white';
                     document.getElementById('options').style.backgroundColor = '#242424';
                     document.getElementsByClassName('footer')[0].style.backgroundColor = 'black';
+                    document.getElementsByName('input');
+
+                    document.querySelectorAll('input[type=text], input[type=email], input[type=date], input[type=tel], #country, textarea')
+                        .forEach( el =>{
+                            el.style.color = 'white';
+                        });
+                    document.querySelectorAll('#country option').forEach(el =>{
+                        el.style.color = 'black';
+                    })
                     break;
                 }
                 case 'light':{
@@ -28,13 +37,20 @@ function consumeCookies(){
                     newH2Color = 'black';
                     document.getElementById('options').style.backgroundColor = 'rgb(218, 214, 214)';
                     document.getElementsByClassName('footer')[0].style.backgroundColor = '#242424';
+                    document.querySelectorAll('input[type=text], input[type=email], input[type=date], input[type=tel], #country, textarea')
+                        .forEach( el =>{
+                            el.style.color = 'black';
+                        });
+                    document.querySelectorAll('#country option').forEach(el =>{
+                        el.style.color = 'black';
+                    })
                     break;
                 }
             }
 
-            for(let i = 0; i < toChangeH2.length; i++){
-                toChangeH2[i].style.color = newH2Color;
-            }
+            toChangeH2.forEach(el =>{
+                el.style.color = newH2Color;
+            });
         }
     }
 }
