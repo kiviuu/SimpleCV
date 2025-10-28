@@ -1,4 +1,3 @@
-document.cookie = 'mode=light';
 let previewOriginal = null;
 
 function consumeCookies(){
@@ -40,11 +39,35 @@ function consumeCookies(){
     }
 }
 
+//Setup
 document.addEventListener('DOMContentLoaded', () => {
     previewOriginal = document.getElementById('preview').cloneNode(true);
     //consume cookies
     consumeCookies();
 });
+document.getElementById('modeImg').addEventListener('click', () =>{
+    let cookies = document.cookie.split(';');
+    if (cookies.length >= 1) {
+        let temp = cookies[0].split("=");
+        if (temp[0] === 'mode'){
+            switch(temp[1]){
+                case 'dark':{
+                    document.cookie = 'mode=light';
+                    break;
+                }
+                case 'light':{
+                    document.cookie = 'mode=dark';
+                    break;
+                }
+            }
+        }
+    }
+    else{
+        document.cookie = 'mode=light';
+    }
+    consumeCookies();
+});
+
 
 function GeneratePDF(){
     //console.log("function call");
@@ -322,30 +345,6 @@ function GeneratePDF(){
     }
     pdfMake.createPdf(dd).open();
 }
-
-
-document.getElementById('modeImg').addEventListener('click', () =>{
-    let cookies = document.cookie.split(';');
-    if (cookies.length >= 1) {
-        let temp = cookies[0].split("=");
-        if (temp[0] === 'mode'){
-            switch(temp[1]){
-                case 'dark':{
-                    document.cookie = 'mode=light';
-                    break;
-                }
-                case 'light':{
-                    document.cookie = 'mode=dark';
-                    break;
-                }
-            }
-        }
-    }
-    else{
-        document.cookie = 'mode=light';
-    }
-    consumeCookies();
-});
 
 
 //Fields add/remove
@@ -767,5 +766,10 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 document.getElementById('reset-btn').addEventListener('click', () => {
     const previewCopy = previewOriginal.cloneNode(true);
     document.getElementById('preview').replaceWith(previewCopy);
-    attachOnChangeEvents();
+
+    //Delete error messages
+    const toValidateFields = document.getElementsByClassName('message');
+    for (let i = 0; i < toValidateFields.length; i++) {
+        toValidateFields[i].style.display = 'none';
+    }
 });
