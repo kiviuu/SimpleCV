@@ -7,7 +7,8 @@
     background-image: url('img/baner.png');
     background-size: cover;
     background-position: center;
-    height: 140px;
+    height: 13vh;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,7 +114,7 @@ input,textarea,select{
 }
 
 #education{
-    overflow: wrap;
+    overflow: auto;
     resize: vertical;
     height: 50px;
 }
@@ -237,8 +238,8 @@ textarea:focus{
     align-self: flex-end;
 }
 #preview{
-    width: 714px;
-    height: 1010px;
+    width: 928px;
+    height: 1313px;
     margin: 5vh 0;
     background-color: white;
     border: 2px solid black;
@@ -296,7 +297,7 @@ textarea:focus{
 }
 /*---------------------------------------------------------------------------*/
 
-@media screen and (max-width: 1500px){
+@media screen and (max-width: 1580px){
     main{
         flex-direction: column;
         width: 100%;
@@ -311,7 +312,7 @@ textarea:focus{
     #preview{
         margin-bottom: 15vh;
         margin-top: 13vh;
-        transform: scale(1.3);
+        transform: scale(1.2);
     }
 }
 
@@ -321,13 +322,13 @@ textarea:focus{
         margin-right: 10px;
     }
     input[type="radio"]{
-        transform: scale(1.5);
+        transform: scale(1);
         margin-right: 10px;
     }
     #preview{
         margin-bottom: 15vh;
         margin-top: 13vh;
-        transform: scale(1.3);
+        transform: scale(1);
     }
     #right-section{
         width: 100%;

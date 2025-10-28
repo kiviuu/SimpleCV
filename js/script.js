@@ -1,6 +1,45 @@
+document.cookie = 'mode=light';
 let previewOriginal = null;
+
+function consumeCookies(){
+    let cookies = document.cookie.split(';');
+    if (cookies.length >= 1){
+        let temp = cookies[0].split("=");
+        if (temp[0] === 'mode'){
+            let toChangeH2 = document.querySelectorAll('.block h2');
+            console.log(toChangeH2);
+            let newH2Color = 'black';
+            switch(temp[1]){
+                case 'dark':{
+                    document.body.style.backgroundColor = '#493C4B';
+                    document.getElementById('options').style.color = 'white';
+                    newH2Color = 'white';
+                    document.getElementById('options').style.backgroundColor = '#242424';
+                    document.getElementsByClassName('footer')[0].style.backgroundColor = 'black';
+                    break;
+                }
+                case 'light':{
+                    document.body.style.backgroundColor = '#EEE1F0';
+                    document.getElementById('options').style.color = 'black';
+                    newH2Color = 'black';
+                    document.getElementById('options').style.backgroundColor = 'rgb(218, 214, 214)';
+                    document.getElementsByClassName('footer')[0].style.backgroundColor = '#242424';
+                    break;
+                }
+            }
+
+            for(let i = 0; i < toChangeH2.length; i++){
+                toChangeH2[i].style.color = newH2Color;
+            }
+
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     previewOriginal = document.getElementById('preview').cloneNode(true);
+    //consume cookies
+    consumeCookies();
 });
 
 function GeneratePDF(){
