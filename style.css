@@ -130,8 +130,8 @@ input,textarea,select{
     width: 20%;
 }
 
-.form-section input[type=text], 
-input[type=tel], 
+.form-section input[type=text],
+input[type=tel],
 input[type=email],
 input[type=date],
 select,
@@ -142,8 +142,8 @@ textarea{
     border-bottom: 2px solid rgba(0, 0, 0, 0.507);
     transition: all 0.2s ease-in-out;
 }
-.form-section input[type=text]:focus, 
-input[type=tel]:focus, 
+.form-section input[type=text]:focus,
+input[type=tel]:focus,
 input[type=email]:focus,
 input[type=date]:focus,
 select:focus,
@@ -171,7 +171,7 @@ textarea:focus{
     transform: rotate(360deg) scale(1.1);
 }
 #submit-btn:hover{
-    transform: rotate(20deg) scale(1.1);    
+    transform: rotate(20deg) scale(1.1);
 }
 .message{
     color: red;
@@ -224,7 +224,6 @@ textarea:focus{
 }
 .pdfsection-field{
     width: 80%;
-    
     flex-grow: 1;
 }
 .pdfsection-field:first-child{

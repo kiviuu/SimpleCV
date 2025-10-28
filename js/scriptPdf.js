@@ -43,6 +43,9 @@ function consumeCookies(){
 document.addEventListener('DOMContentLoaded', () => {
     previewOriginal = document.getElementById('preview').cloneNode(true);
     //consume cookies
+    if (document.cookie.length <= 0){
+        document.cookie = "mode=light";
+    }
     consumeCookies();
 });
 document.getElementById('modeImg').addEventListener('click', () =>{
