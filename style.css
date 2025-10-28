@@ -45,6 +45,10 @@ input[type=button], input[type=reset], input[type=file]{
 body{
     background-color: #EEE1F0;
 }
+#modeImg:hover{
+    transition: 0.2s;
+    transform: scale(1.2);
+}
 /*---------------------------------------------------------------------------*/
 
 

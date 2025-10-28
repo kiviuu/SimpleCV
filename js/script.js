@@ -9,8 +9,11 @@ function consumeCookies(){
             let toChangeH2 = document.querySelectorAll('.block h2');
             console.log(toChangeH2);
             let newH2Color = 'black';
+            let changeImg = document.getElementById('modeImg');
             switch(temp[1]){
                 case 'dark':{
+                    changeImg.src = 'img/moon-solid-full.svg';
+                    changeImg.alt = 'Dark Solid';
                     document.body.style.backgroundColor = '#493C4B';
                     document.getElementById('options').style.color = 'white';
                     newH2Color = 'white';
@@ -19,6 +22,8 @@ function consumeCookies(){
                     break;
                 }
                 case 'light':{
+                    changeImg.src = 'img/sun-solid-full.svg';
+                    changeImg.alt = 'Sun Solid';
                     document.body.style.backgroundColor = '#EEE1F0';
                     document.getElementById('options').style.color = 'black';
                     newH2Color = 'black';
@@ -31,7 +36,6 @@ function consumeCookies(){
             for(let i = 0; i < toChangeH2.length; i++){
                 toChangeH2[i].style.color = newH2Color;
             }
-
         }
     }
 }
@@ -43,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function GeneratePDF(){
-    console.log("function call");
+    //console.log("function call");
     //section Personal Info
     var firstName = document.getElementById('firstname').value.trim();
     var middleName = document.getElementById('middlename').value.trim();
@@ -320,7 +324,28 @@ function GeneratePDF(){
 }
 
 
-
+document.getElementById('modeImg').addEventListener('click', () =>{
+    let cookies = document.cookie.split(';');
+    if (cookies.length >= 1) {
+        let temp = cookies[0].split("=");
+        if (temp[0] === 'mode'){
+            switch(temp[1]){
+                case 'dark':{
+                    document.cookie = 'mode=light';
+                    break;
+                }
+                case 'light':{
+                    document.cookie = 'mode=dark';
+                    break;
+                }
+            }
+        }
+    }
+    else{
+        document.cookie = 'mode=light';
+    }
+    consumeCookies();
+});
 
 
 //Fields add/remove
@@ -714,7 +739,7 @@ attachOnChangeEvents();
 /*----------------------------------------------------------------------------------------*/
 function validateRequiredFields(){
     let fullValid = true;
-    return true;
+    //return true;
     const toValidateFields = document.getElementsByClassName('to-validate');
     const toValidPairs = Array.from(toValidateFields).map(field => {
        const input = field.querySelector('input');
