@@ -127,18 +127,30 @@ function GeneratePDF(){
     //console.log(imageSrc.height);
     const calculatedBottomMargin = 220 - imgHeight;
     //console.log(calculatedBottomMargin);
-    var imageObj = {
+    var img = {
         image: "",
         fit: [150, 170],
-        margin: [0,0,0,10]
+        margin: [0,-5,0,0]
     }
+
     //console.log(file);
     if(typeof(file) === 'undefined'){
         alert("Wybierz plik graficzny!");
         return 0;
     }
     else{
-        imageObj.image = imageSrc;
+        img.image = imageSrc;
+    }
+    var imageObj = {
+        layout: 'noBorders',
+        table:{
+            heights: [ 200 ],
+            body: [
+                [
+                    img
+                ]
+            ]
+        }
     }
     //console.log(image);
     //section Image
@@ -196,6 +208,7 @@ function GeneratePDF(){
         content: [
             {
                 columns: [
+
                         imageObj,
                         {
                             stack:[
@@ -219,7 +232,7 @@ function GeneratePDF(){
                                 absolutePosition: { x: 350, y: 45},bold: true, color: headerFontColor
                         }
                     ]
-                    
+
             },
             {
               text: "Education", bold: true, style: "h2", color: contentFontColor
