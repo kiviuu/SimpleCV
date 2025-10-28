@@ -301,7 +301,7 @@ textarea:focus{
 }
 /*---------------------------------------------------------------------------*/
 
-@media screen and (max-width: 1580px){
+@media screen and (max-width: 2100px){
     main{
         flex-direction: column;
         width: 100%;
@@ -318,9 +318,13 @@ textarea:focus{
         margin-top: 13vh;
         transform: scale(1.2);
     }
+    h2{
+        text-align: center;
+        width: 90%;
+    }
 }
 
-@media screen and (max-width: 1100px){
+@media screen and (max-width: 1300px){
     input[type="checkbox"]{
         transform: scale(1.5);
         margin-right: 10px;
