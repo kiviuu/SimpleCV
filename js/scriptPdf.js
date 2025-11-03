@@ -91,56 +91,56 @@ document.getElementById('modeImg').addEventListener('click', () =>{
 function GeneratePDF(){
     //console.log("function call");
     //section Personal Info
-    var firstName = document.getElementById('firstname').value.trim();
-    var middleName = document.getElementById('middlename').value.trim();
-    var lastName = document.getElementById('lastname').value.trim();
+    let firstName = document.getElementById('firstname').value.trim();
+    let middleName = document.getElementById('middlename').value.trim();
+    let lastName = document.getElementById('lastname').value.trim();
     //section Personal Info
 
 
     //section Contacts
-    var phone = document.getElementById('telnumber').value.trim();
-    var email = document.getElementById('email').value.trim();
+    let phone = document.getElementById('telnumber').value.trim();
+    let email = document.getElementById('email').value.trim();
     //section Contacts
 
 
     //section Address
-    var country = document.getElementById('country').value.trim();
-    var city = document.getElementById('city').value.trim();
-    var postalCode = document.getElementById('postalcode').value.trim();
+    let country = document.getElementById('country').value.trim();
+    let city = document.getElementById('city').value.trim();
+    let postalCode = document.getElementById('postalcode').value.trim();
     //section Address
 
 
     //section Education
-    var education = document.getElementById('education').value.trim();
-    var educatnioList = [];
+    let education = document.getElementById('education').value.trim();
+    let educatnioList;
     educatnioList = education.split(',');
-    if(educatnioList[educatnioList.length-1] == "")
+    if(educatnioList[educatnioList.length-1] === "")
         educatnioList.pop();
     //array with elements
     //section Education
 
 
     //section Experience
-    var jobsDates = document.getElementsByClassName('jobsdates');
-    var jobsDatesList = [];
+    let jobsDates = document.getElementsByClassName('jobsdates');
+    let jobsDatesList = [];
     for(let i = 0; i<jobsDates.length; i++){
         jobsDatesList.push(jobsDates[i].value.trim());
     }
 
-    var jobsDescription = document.getElementsByClassName('jobsex');
-    var jobdsElements = [];
+    let jobsDescription = document.getElementsByClassName('jobsex');
+    let jobdsElements = [];
     for(let i = 0; i<jobsDescription.length; i++){
-        var obj = {
+        let obj = {
             text: jobsDatesList[i],
             bold: true,
             width: 'auto',
         };
-        var obj2 = {
+        let obj2 = {
             text: "-\u00A0" + jobsDescription[i].value.trim(),
             width: 'auto', 
             margin: [10,0,0,0]
         };
-        var column = [obj, obj2];
+        let column = [obj, obj2];
         jobdsElements.push({columns: column});
     }
     //section Experienc
@@ -148,25 +148,25 @@ function GeneratePDF(){
     
 
     //section Languages
-    var languages = document.getElementsByClassName('languages');
-    var languagesList = [];
+    let languages = document.getElementsByClassName('languages');
+    let languagesList = [];
     for(let i = 0; i<languages.length; i++){
         languagesList.push(languages[i].value.trim());
     }
-    var languagesLevels = document.getElementsByClassName('languageslevels');
-    var languagesElements = [];
+    let languagesLevels = document.getElementsByClassName('languageslevels');
+    let languagesElements = [];
     for(let i = 0; i<languagesLevels.length; i++){
-        var obj = {
+        let obj = {
             text: languagesList[i],
             bold: true,
             width: 'auto',
         };
-        var obj2 = {
+        let obj2 = {
             text: "-\u00A0" + languagesLevels[i].value.trim(),
             width: 'auto', 
             margin: [10,0,0,0]
         };
-        var column = [obj, obj2];
+        let column = [obj, obj2];
         console.log(column);
         languagesElements.push({columns: column});
        
@@ -175,8 +175,8 @@ function GeneratePDF(){
 
 
     //section Licenses
-    var licenses = document.getElementsByClassName('licenses');
-    var licensesList = [];
+    let licenses = document.getElementsByClassName('licenses');
+    let licensesList = [];
     for(let i = 0; i<licenses.length; i++){
         licensesList.push(licenses[i].value.trim());
     }
@@ -184,8 +184,8 @@ function GeneratePDF(){
 
 
     //section Skills
-    var skills = document.getElementsByClassName('skills');
-    var skillsList = [];
+    let skills = document.getElementsByClassName('skills');
+    let skillsList = [];
     for(let i = 0; i<skills.length; i++){
        skillsList.push({text: skills[i].value.trim()});
     }
@@ -197,7 +197,6 @@ function GeneratePDF(){
     const fileInput = document.getElementById('photo');
     const file = fileInput.files[0];
     const imageHandler = document.getElementById('imageHandler');
-    let imgHeight = 0;
     if (file) {
         const reader = new FileReader();
         reader.onload = function(event) {
@@ -208,11 +207,10 @@ function GeneratePDF(){
     
         reader.readAsDataURL(file);
     }
-    var imageSrc = imageHandler.src;
+    let imageSrc = imageHandler.src;
     //console.log(imageSrc.height);
-    const calculatedBottomMargin = 220 - imgHeight;
     //console.log(calculatedBottomMargin);
-    var img = {
+    let img = {
         image: "",
         fit: [150, 170],
         margin: [0,-5,0,0]
@@ -226,7 +224,7 @@ function GeneratePDF(){
     else{
         img.image = imageSrc;
     }
-    var imageObj = {
+    let imageObj = {
         layout: 'noBorders',
         table:{
             heights: [ 200 ],
@@ -242,7 +240,7 @@ function GeneratePDF(){
 
 
     //section Provision
-    var provision = "";
+    let provision = "";
     if(document.getElementById('use-provision').checked){
         provision = document.getElementById('identity').value.trim();
     }
@@ -250,28 +248,28 @@ function GeneratePDF(){
 
 
     //section custom settings
-    var headerColor = document.getElementById('header-color').value;
-    var headerFontColor = document.getElementById('header-font-color').value;
-    var contentColor = document.getElementById('content-color').value;
-    var contentFontColor = document.getElementById('content-font-color').value;
+    let headerColor = document.getElementById('header-color').value;
+    let headerFontColor = document.getElementById('header-font-color').value;
+    let contentColor = document.getElementById('content-color').value;
+    let contentFontColor = document.getElementById('content-font-color').value;
     //section custom settings
 
 
 
-    var h2Style = {
+    let h2Style = {
         fontSize: 15,
         margin: [0,20,0,10],
         bold: true
     };
-    var footerStyle = {
+    let footerStyle = {
         alignment: 'center',
         fontSize: 8,
         color: "#999999"
     };
-    var space = {
+    let space = {
         margin: [5,0,0,0]
     };
-    var dd = {
+    let dd = {
         pageSize: 'A4',
         pageMargins: [ 30, 20, 30, 40 ],
         background: function () {
@@ -370,9 +368,9 @@ function GeneratePDF(){
 /*----------------------------------------------------------------------------------------*/
 function removeField(counter, counterName, childClassName){
     if(counter>0){
-        var children = document.getElementsByClassName(childClassName);
-        var child = children.item(children.length-1);
-        var element = child.parentElement;
+        let children = document.getElementsByClassName(childClassName);
+        let child = children.item(children.length-1);
+        let element = child.parentElement;
         element.remove();
 
         switch (counterName){
@@ -386,16 +384,16 @@ function removeField(counter, counterName, childClassName){
 }
 /*----------------------------------------------------------------------------------------*/
 //add experience button
-var JobsCounter = 0;
+let JobsCounter = 0;
 const addjobbtn = document.getElementById('addJob');
 addjobbtn.addEventListener('click', () => {
-    var test = document.getElementsByClassName('jobsex')[JobsCounter];
-    if(test.value.trim() != ""){
+    let test = document.getElementsByClassName('jobsex')[JobsCounter];
+    if(test.value.trim() !== ""){
         JobsCounter++;
-        var par = document.getElementById('experience');
-        var div = document.createElement('div');
+        let par = document.getElementById('experience');
+        let div = document.createElement('div');
 
-        var input = document.createElement('input');
+        let input = document.createElement('input');
         input.type = 'text';
         input.id = 'jobdate'+JobsCounter;
         input.classList.add('jobsdates');
@@ -427,16 +425,16 @@ removejobbtn.addEventListener('click', () => {
 });
 /*----------------------------------------------------------------------------------------*/
 //add language field
-var LanguageCounter = 0;
+let LanguageCounter = 0;
 const addlangbtn = document.getElementById('addLanguage');
 addlangbtn.addEventListener('click', () => {
-    var test = document.getElementsByClassName('languages')[LanguageCounter];
-    if(test.value.trim() != ""){
+    let test = document.getElementsByClassName('languages')[LanguageCounter];
+    if(test.value.trim() !== ""){
         LanguageCounter++;
-        var par = document.getElementById('languages');
-        var div = document.createElement('div');
+        let par = document.getElementById('languages');
+        let div = document.createElement('div');
 
-        var input = document.createElement('input');
+        let input = document.createElement('input');
         input.type = 'text';
         input.id = 'language'+LanguageCounter;
         input.classList.add('languages');
@@ -467,17 +465,17 @@ removelangbtn.addEventListener('click', () => {
 });
 /*----------------------------------------------------------------------------------------*/
 //add license field
-var LicenseCounter = 0;
+let LicenseCounter = 0;
 const addlicbtn = document.getElementById('addLicense');
 addlicbtn.addEventListener('click', () => {
-    var test = document.getElementsByClassName('licenses')[LicenseCounter];
-    if(test.value.trim() != ""){
+    let test = document.getElementsByClassName('licenses')[LicenseCounter];
+    if(test.value.trim() !== ""){
         LicenseCounter++;
-        var par = document.getElementById('licenses');
-        var div = document.createElement('div');
+        let par = document.getElementById('licenses');
+        let div = document.createElement('div');
 
-        var label = document.createElement('label');
-        var text = document.createTextNode('License');
+        let label = document.createElement('label');
+        let text = document.createTextNode('License');
         label.appendChild(text);
         div.appendChild(label);
 
@@ -501,20 +499,20 @@ removelicbtn.addEventListener('click', () => {
 });
 /*----------------------------------------------------------------------------------------*/
 //add skill field
-var SkillCounter = 0;
+let SkillCounter = 0;
 const addskillbtn = document.getElementById('addSkill');
 addskillbtn.addEventListener('click', () => {
-    var test = document.getElementsByClassName('skills')[SkillCounter];
-    if(test.value.trim() != ""){
+    let test = document.getElementsByClassName('skills')[SkillCounter];
+    if(test.value.trim() !== ""){
         SkillCounter++;
-        var par = document.getElementById('skills');
-        var div = document.createElement('div');
-        var textNode = document.createTextNode('Skill');
-        var label = document.createElement('label');
+        let par = document.getElementById('skills');
+        let div = document.createElement('div');
+        let textNode = document.createTextNode('Skill');
+        let label = document.createElement('label');
         label.appendChild(textNode);
         div.appendChild(label);
 
-        var input = document.createElement('input');
+        let input = document.createElement('input');
         input.type = 'text';
         input.id = 'skill'+SkillCounter;
         input.classList.add('skills');
@@ -646,7 +644,7 @@ function attachOnChangeEvents() {
 
         let li = [];
         li = text.split(',');
-        if (li[li.length - 1] == "")
+        if (li[li.length - 1] === "")
             li.pop();
         let child;
         for (let i = 0; i < li.length; i++) {
@@ -716,7 +714,7 @@ function attachOnChangeEvents() {
         if (provisionCheck.checked) {
             input.disabled = false;
             label.style.color = '#141414';
-            if (input.value != "") {
+            if (input.value !== "") {
                 target.innerHTML = input.value;
             } else {
                 target.innerHTML = example;
@@ -731,7 +729,7 @@ function attachOnChangeEvents() {
         let input = document.getElementById('identity');
         let target = document.getElementById('identity-field');
         if (provisionCheck.checked) {
-            if (input.value != "") {
+            if (input.value !== "") {
                 target.innerHTML = input.value;
             } else {
                 target.innerHTML = example;
